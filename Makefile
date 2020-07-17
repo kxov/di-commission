@@ -8,3 +8,6 @@ composer-install:
 
 run:
 	docker-compose run --rm php-cli php src/app.php
+
+test:
+	docker-compose run --rm php-cli php vendor/bin/phpunit --testsuite=unit

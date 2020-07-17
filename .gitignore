@@ -2,7 +2,3 @@
 .DS_Store
 /var/
 /vendor/
-
-.phpunit
-.phpunit.result.cache
-/phpunit.xml
