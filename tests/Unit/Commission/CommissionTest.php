@@ -7,19 +7,37 @@ use Task\Commission\Commission;
 
 class CommissionTest extends TestCase
 {
-    public function testSuccess(): void
+    /**
+     * @dataProvider commissionProvider
+     * @param $currency
+     * @param $rate
+     * @param $amount
+     * @param $isEuro
+     * @param $expected
+     */
+    public function testSuccess($currency, $rate, $amount, $isEuro, $expected): void
     {
-        $comm = new Commission('EUR', 0, 100, true);
-        $this->assertEquals(1.0, $comm->calculate());
+        $comm = new Commission($currency, $rate, $amount, $isEuro);
+        $this->assertEquals($expected, $comm->calculate());
 
-        $comm1 = new Commission('USD', 1.1414, 50, true);
-        $this->assertEquals(0.44, $comm1->calculate());
+        $comm1 = new Commission($currency, $rate, $amount, $isEuro);
+        $this->assertEquals($expected, $comm1->calculate());
 
-        $comm2 = new Commission('ES', 1, 1, false);
+        $comm2 = new Commission($currency, $rate, $amount, $isEuro);
         $this->assertIsFloat($comm2->calculate());
-        $this->assertEquals(0.02, $comm2->calculate());
+        $this->assertEquals($expected, $comm2->calculate());
 
-        $comm3 = new Commission('0', 0, 0, false);
-        $this->assertEquals(0.00, $comm3->calculate());
+        $comm3 = new Commission($currency, $rate, $amount, $isEuro);
+        $this->assertEquals($expected, $comm3->calculate());
+    }
+
+    public function commissionProvider()
+    {
+        return [
+            1  => ['EUR', 0, 100, true, 1.0],
+            2  => ['USD', 1.1414, 50, true, 0.44],
+            3  => ['ES', 1, 1, false, 0.02],
+            4  => ['0', 0, 0, false, 0.00]
+        ];
     }
 }

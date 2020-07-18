@@ -3,6 +3,7 @@
 namespace Task\Reader;
 
 use Iterator;
+use Task\Parser\ParseLineException;
 use Task\Parser\ParserInterface;
 
 final class Reader implements ReaderInterface
@@ -19,7 +20,12 @@ final class Reader implements ReaderInterface
     public function read()
     {
         foreach ($this->iterator as $line) {
-            echo $this->parser->parse($line);
+            try {
+                echo $this->parser->parse($line);
+            } catch (ParseLineException $exception) {
+                echo $exception->getMessage();
+                continue;
+            }
             print "\n";
         }
     }

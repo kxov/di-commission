@@ -9,8 +9,7 @@ final class FileIterator implements Iterator
     private $handler;
     private $current;
 
-    private string $fileName;
-    private int $key;
+    private int $key = 0;
 
     public function __destruct()
     {
@@ -20,10 +19,6 @@ final class FileIterator implements Iterator
     public function __construct(string $fileName)
     {
         $this->handler = fopen($fileName, 'r');
-        $this->current = fgets($this->handler);
-
-        $this->fileName = $fileName;
-        $this->key = 0;
     }
 
     public function current()
@@ -33,10 +28,8 @@ final class FileIterator implements Iterator
 
     public function next()
     {
-       if ($this->valid()) {
-           $this->current = fgets($this->handler);
-           $this->key++;
-       }
+        $this->current = fgets($this->handler);
+        $this->key++;
     }
 
     public function key()
@@ -51,7 +44,9 @@ final class FileIterator implements Iterator
 
     public function rewind()
     {
-        $this->__destruct();
-        $this->__construct($this->fileName);
+        rewind($this->handler);
+        $this->current = fgets($this->handler);
+
+        $this->key = 0;
     }
 }

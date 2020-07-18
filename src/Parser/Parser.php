@@ -18,9 +18,21 @@ final class Parser implements ParserInterface
         $this->client = $client;
     }
 
+    private function isValid(\stdClass $line): bool
+    {
+        if ($line->currency && $line->bin && $line->amount) {
+            return true;
+        }
+        return false;
+    }
+
     public function parse(string $json)
     {
         $line = json_decode($json);
+
+        if ( ! $this->isValid($line) ) {
+            throw new ParseLineException(sprintf('Bad json line: %s', $json));
+        }
 
         $rate = $this->getRate($line->currency);
         $isEuro = $this->isEuro($line->bin);
