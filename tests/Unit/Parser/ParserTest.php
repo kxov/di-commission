@@ -22,7 +22,7 @@ class ParserTest extends TestCase
      * @param $expectedCommission
      * @throws ParseLineException
      */
-    public function CorrectParserParseOneLine(string $line, $expectedCommission): void
+    public function testCorrectParserParseOneLine(string $line, $expectedCommission): void
     {
         $this->assertEquals($expectedCommission, $this->parser->parse($line));
     }
