@@ -3,7 +3,6 @@
 namespace Task\Reader;
 
 use Iterator;
-use Task\Parser\ParseLineException;
 use Task\Parser\ParserInterface;
 
 final class Reader implements ReaderInterface
@@ -22,7 +21,7 @@ final class Reader implements ReaderInterface
         foreach ($this->iterator as $line) {
             try {
                 echo $this->parser->parse($line);
-            } catch (ParseLineException $exception) {
+            } catch (\Exception $exception) {
                 echo $exception->getMessage();
                 continue;
             }

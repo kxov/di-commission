@@ -11,6 +11,8 @@ final class Commission
     private float  $amount;
     private bool   $isEuro;
 
+    private float  $fixed = 0.0;
+
     public function __construct(
         string $currency,
         float  $rate,
@@ -26,16 +28,14 @@ final class Commission
 
     public function calculate()
     {
-        $fixed = 0;
-
         if ($this->currency === self::CHECK_CURRENCY || $this->rate === 0) {
-            $fixed = $this->amount;
+            $this->fixed = $this->amount;
         }
 
         if ($this->currency !== self::CHECK_CURRENCY && $this->rate > 0) {
-            $fixed = $this->amount / $this->rate;
+            $this->fixed = $this->amount / $this->rate;
         }
 
-        return round($fixed * ($this->isEuro ? 0.01 : 0.02), 2);
+        return round($this->fixed * ($this->isEuro ? 0.01 : 0.02), 2);
     }
 }

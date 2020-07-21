@@ -14,6 +14,7 @@ final class Client implements ClientInterface
     {
         $this->client = $client;
     }
+
     public function get(string $url): ResponseInterface
     {
         try {
