@@ -41,7 +41,7 @@ class ParserTest extends TestCase
     public function getJsonLine()
     {
         yield ['{"bin":"45717360","amount":"100.00","currency":"EUR"}', 1.0];
-        yield ['{"bin":"516793","amount":"50.00","currency":"USD"}', 0.44];
+        yield ['{"bin":"516793","amount":"50.00","currency":"USD"}', 0.43];
     }
 
     public function getInvalidData()
