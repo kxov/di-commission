@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Task\Reader;
+namespace Task\Application\Reader;
 
 use Iterator;
-use Task\Parser\ParserInterface;
+use Task\Application\Parser\ParserInterface;
 
 final class Reader implements ReaderInterface
 {

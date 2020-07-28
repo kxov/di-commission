@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Task\Util;
+namespace Task\Application\Util;
 
 final class RandomGenerateValue
 {

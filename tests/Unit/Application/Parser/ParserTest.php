@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Unit\Parser;
+namespace Unit\Application\Parser;
 
 use PHPUnit\Framework\TestCase;
-use Task\Client\ClientFactory;
-use Task\Parser\ParseLineException;
-use Task\Parser\Parser;
+use Task\Application\Client\ClientFactory;
+use Task\Application\Parser\ParseLineException;
+use Task\Application\Parser\Parser;
 
 class ParserTest extends TestCase
 {

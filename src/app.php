@@ -2,7 +2,7 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Task\Reader\ReaderFactory;
+use Task\Application\Reader\ReaderFactory;
 
 $inputFile = __DIR__ . '/../input/input.txt';
 

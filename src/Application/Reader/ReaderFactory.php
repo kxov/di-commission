@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Task\Reader;
+namespace Task\Application\Reader;
 
-use Task\Client\ClientFactory;
-use Task\Parser\Parser;
+use Task\Application\Client\ClientFactory;
+use Task\Application\Parser\Parser;
 
 class ReaderFactory
 {

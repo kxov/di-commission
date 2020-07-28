@@ -1,11 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Unit\Commission;
+namespace Unit\Domain\Commission;
 
 use PHPUnit\Framework\TestCase;
-use Task\Commission\Commission;
+use Task\Domain\Commission\Commission;
+use Task\Domain\Commission\CommissionCalculator;
 
-class CommissionTest extends TestCase
+class CommissionCalculatorTest extends TestCase
 {
     /**
      * @dataProvider commissionProvider
@@ -18,17 +19,26 @@ class CommissionTest extends TestCase
     public function testSuccess($currency, $rate, $amount, $isEuro, $expected): void
     {
         $comm = new Commission($currency, $rate, $amount, $isEuro);
-        $this->assertEquals($expected, $comm->calculate());
+
+        $commissionCalculator = new CommissionCalculator($comm);
+
+        $this->assertEquals($expected, $commissionCalculator->calculate());
 
         $comm1 = new Commission($currency, $rate, $amount, $isEuro);
-        $this->assertEquals($expected, $comm1->calculate());
+        $commissionCalculator->setCommission($comm1);
+
+        $this->assertEquals($expected, $commissionCalculator->calculate());
 
         $comm2 = new Commission($currency, $rate, $amount, $isEuro);
-        $this->assertIsFloat($comm2->calculate());
-        $this->assertEquals($expected, $comm2->calculate());
+        $commissionCalculator->setCommission($comm2);
+
+        $this->assertIsFloat($commissionCalculator->calculate());
+        $this->assertEquals($expected, $commissionCalculator->calculate());
 
         $comm3 = new Commission($currency, $rate, $amount, $isEuro);
-        $this->assertEquals($expected, $comm3->calculate());
+        $commissionCalculator->setCommission($comm3);
+
+        $this->assertEquals($expected, $commissionCalculator->calculate());
     }
 
     public function commissionProvider()

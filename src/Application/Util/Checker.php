@@ -1,12 +1,14 @@
 <?php declare(strict_types=1);
 
-namespace Task\Util;
+namespace Task\Application\Util;
+
+use Task\Domain\CardBin\CardBin;
 
 final class Checker
 {
-    public static function check(string $code): bool
+    public static function check(CardBin $cardBin): bool
     {
-        switch ($code) {
+        switch ($cardBin->getAlpha2()) {
             case 'AT':
             case 'BE':
             case 'BG':

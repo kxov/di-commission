@@ -1,13 +1,13 @@
 <?php declare(strict_types=1);
 
-namespace Unit\Api\Client;
+namespace Unit\Application\Checker;
 
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use Task\Client\Client;
-use Task\Util\RandomGenerateValue;
+use Task\Application\Client\Client;
+use Task\Application\Util\RandomGenerateValue;
 
 class ClientTest extends TestCase
 {

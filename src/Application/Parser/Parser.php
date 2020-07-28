@@ -1,10 +1,12 @@
 <?php declare(strict_types=1);
 
-namespace Task\Parser;
+namespace Task\Application\Parser;
 
-use Task\Commission\Commission;
-use Task\Util\Checker;
-use Task\Client\ClientInterface;
+use Task\Domain\Commission\{Commission, CommissionCalculator};
+use Task\Application\Util\Checker;
+use Task\Application\Client\ClientInterface;
+use Task\Domain\CardBin\CardBin;
+use Task\Domain\ExchangeRate\ExchangeRate;
 
 final class Parser implements ParserInterface
 {
@@ -44,22 +46,26 @@ final class Parser implements ParserInterface
             $isEuro
         );
 
-        return $commission->calculate();
+        $commissionCalculator = new CommissionCalculator($commission);
+
+        return $commissionCalculator->calculate();
     }
 
     private function isEuro(string $bin): bool
     {
         $response = $this->client->getArray(sprintf(self::BIN_URL, $bin));
 
-        $code = $response['country']['alpha2'];
+        $cardBin = new CardBin($response['country']['alpha2']);
 
-        return Checker::check($code);
+        return Checker::check($cardBin);
     }
 
     private function getRate(string $currency)
     {
         $response = $this->client->getArray(self::EXCHANGE_URL);
 
-        return $response['rates'][$currency] ?? 0;
+        $exchangeRate = new ExchangeRate($currency, $response['rates'][$currency]);
+
+        return $exchangeRate->getRate();
     }
 }

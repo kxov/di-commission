@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Task\Client;
+namespace Task\Application\Client;
 
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
