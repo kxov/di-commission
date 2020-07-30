@@ -2,18 +2,12 @@
 
 namespace Task\Application\Reader;
 
-use Task\Application\Client\ClientFactory;
-use Task\Application\Parser\Parser;
+use Task\Application\Parser\ParserInterface;
 
 class ReaderFactory
 {
-    public static function make(string $inputFile): Reader
+    public static function make(ParserInterface $parser, \Iterator $iterator): Reader
     {
-        $client = ClientFactory::create();
-
-        $parser = new Parser($client);
-        $iterator = new FileIterator($inputFile);
-
         return new Reader($iterator, $parser);
     }
 }
