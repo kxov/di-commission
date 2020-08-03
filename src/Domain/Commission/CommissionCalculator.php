@@ -39,7 +39,5 @@ final class CommissionCalculator
         }
 
         return $this->roundUp($this->fixed * ($this->commission->isEuro() ? self::WITH_EURO : self::WITH_OUT_EURO));
-
-        //return round($this->fixed * ($this->commission->isEuro() ? self::WITH_EURO : self::WITH_OUT_EURO), 2);
     }
 }
