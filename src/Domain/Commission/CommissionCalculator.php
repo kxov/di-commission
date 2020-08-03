@@ -22,6 +22,12 @@ final class CommissionCalculator
         $this->commission = $commission;
     }
 
+    private function roundUp(float $value, int $places = 2): float
+    {
+        $corrector = pow(10, $places);
+        return ceil($value * $corrector) / $corrector;
+    }
+
     public function calculate()
     {
         if ($this->commission->getCurrency() === self::CHECK_CURRENCY || $this->commission->getRate() === 0) {
@@ -32,6 +38,8 @@ final class CommissionCalculator
             $this->fixed = $this->commission->getAmount() / $this->commission->getRate();
         }
 
-        return round($this->fixed * ($this->commission->isEuro() ? self::WITH_EURO : self::WITH_OUT_EURO), 2);
+        return $this->roundUp($this->fixed * ($this->commission->isEuro() ? self::WITH_EURO : self::WITH_OUT_EURO));
+
+        //return round($this->fixed * ($this->commission->isEuro() ? self::WITH_EURO : self::WITH_OUT_EURO), 2);
     }
 }
