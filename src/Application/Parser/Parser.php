@@ -3,7 +3,7 @@
 namespace Task\Application\Parser;
 
 use Task\Domain\Commission\{Commission, CommissionCalculator};
-use Task\Application\Util\Checker;
+use Task\Application\Util\CardBinEuroChecker;
 use Task\Application\Client\ClientInterface;
 use Task\Domain\CardBin\CardBin;
 use Task\Domain\ExchangeRate\ExchangeRate;
@@ -57,7 +57,7 @@ final class Parser implements ParserInterface
 
         $cardBin = new CardBin($response['country']['alpha2']);
 
-        return Checker::check($cardBin);
+        return CardBinEuroChecker::check($cardBin);
     }
 
     private function getRate(string $currency)
