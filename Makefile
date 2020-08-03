@@ -7,7 +7,7 @@ composer-install:
 	docker-compose run --rm php-cli composer install
 
 run:
-	docker-compose run --rm php-cli php src/app.php
+	docker-compose run --rm php-cli php src/app.php -f=/app/input/input.txt
 
 test:
 	docker-compose run --rm php-cli php vendor/bin/phpunit --testsuite=unit

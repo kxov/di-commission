@@ -6,7 +6,8 @@ use Task\Application\Parser\Parser;
 use Task\Application\Client\ClientFactory;
 use Task\Application\Reader\{FileIterator, ReaderFactory};
 
-$inputFile = __DIR__ . '/../input/input.txt';
+$options = getopt('f:');
+$inputFile = $options['f'] ?? '';
 
 try {
 
