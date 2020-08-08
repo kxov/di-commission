@@ -14,6 +14,6 @@ final class CardBinEuroChecker
 
     public static function check(CardBin $cardBin): bool
     {
-        return (in_array($cardBin->getAlpha2(), static::EU_COUNTRY_CODES));
+        return in_array($cardBin->getAlpha2(), static::EU_COUNTRY_CODES);
     }
 }
