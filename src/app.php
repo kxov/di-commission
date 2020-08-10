@@ -2,9 +2,9 @@
 
 require_once __DIR__ . '/../vendor/autoload.php';
 
-use Task\Application\Parser\Parser;
-use Task\Application\Client\ClientFactory;
-use Task\Application\Reader\{FileIterator, ReaderFactory};
+use App\CommissionCalculation\Application\Parser\Parser;
+use App\CommissionCalculation\Application\Client\ClientFactory;
+use App\CommissionCalculation\Application\Reader\{FileIterator, ReaderFactory};
 
 $options = getopt('f:');
 $inputFile = $options['f'] ?? '';

@@ -1,5 +1,5 @@
 {
-    "name": "makx/task",
+    "name": "makx/commission-calculation",
     "type": "project",
     "authors": [
         {
@@ -17,7 +17,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Task\\": "src"
+            "App\\": "src"
         }
     }
 }
