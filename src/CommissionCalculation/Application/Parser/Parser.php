@@ -2,10 +2,10 @@
 
 namespace App\CommissionCalculation\Application\Parser;
 
-use App\CommissionCalculation\Domain\Commission\{Commission, CommissionCalculator};
+use App\CommissionCalculation\Domain\Commission\{Commission};
 use App\CommissionCalculation\Application\Util\CardBinEuroChecker;
 use App\CommissionCalculation\Application\Client\ClientInterface;
-use App\CommissionCalculation\Domain\CardBin\CardBin;
+use App\CommissionCalculation\Domain\Card\Card;
 use App\CommissionCalculation\Domain\ExchangeRate\ExchangeRate;
 
 final class Parser implements ParserInterface
@@ -53,9 +53,9 @@ final class Parser implements ParserInterface
     {
         $response = $this->client->getArray(sprintf(self::BIN_URL, $bin));
 
-        $cardBin = new CardBin($response['country']['alpha2']);
+        $card = new Card($response['country']['alpha2']);
 
-        return CardBinEuroChecker::check($cardBin);
+        return $card->isEuro();
     }
 
     private function getRate(string $currency)
