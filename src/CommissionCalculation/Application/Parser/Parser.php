@@ -46,9 +46,7 @@ final class Parser implements ParserInterface
             $isEuro
         );
 
-        $commissionCalculator = new CommissionCalculator($commission);
-
-        return $commissionCalculator->calculate();
+        return $commission->calculate();
     }
 
     private function isEuro(string $bin): bool
