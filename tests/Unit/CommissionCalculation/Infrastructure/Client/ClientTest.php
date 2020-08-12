@@ -6,8 +6,8 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\Response\MockResponse;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Contracts\HttpClient\ResponseInterface;
-use App\CommissionCalculation\Application\Client\Client;
-use App\CommissionCalculation\Application\Util\RandomGenerateValue;
+use App\CommissionCalculation\Infrastructure\Client\Client;
+use App\CommissionCalculation\Infrastructure\Util\RandomGenerateValue;
 
 class ClientTest extends TestCase
 {

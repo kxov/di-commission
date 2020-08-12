@@ -3,9 +3,9 @@
 namespace Unit\Application\Parser;
 
 use PHPUnit\Framework\TestCase;
-use App\CommissionCalculation\Application\Client\ClientFactory;
-use App\CommissionCalculation\Application\Parser\ParseLineException;
-use App\CommissionCalculation\Application\Parser\Parser;
+use App\CommissionCalculation\Infrastructure\Client\ClientFactory;
+use App\CommissionCalculation\Infrastructure\Parser\ParseLineException;
+use App\CommissionCalculation\Infrastructure\Parser\Parser;
 
 class ParserTest extends TestCase
 {

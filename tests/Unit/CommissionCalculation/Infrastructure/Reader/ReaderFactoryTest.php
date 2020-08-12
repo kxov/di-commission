@@ -3,9 +3,9 @@
 namespace Unit\Application\Reader;
 
 use PHPUnit\Framework\TestCase;
-use App\CommissionCalculation\Application\Parser\ParserInterface;
-use App\CommissionCalculation\Application\Reader\ReaderFactory;
-use App\CommissionCalculation\Application\Reader\ReaderInterface;
+use App\CommissionCalculation\Infrastructure\Parser\ParserInterface;
+use App\CommissionCalculation\Infrastructure\Reader\ReaderFactory;
+use App\CommissionCalculation\Infrastructure\Reader\ReaderInterface;
 
 class ReaderFactoryTest extends TestCase
 {

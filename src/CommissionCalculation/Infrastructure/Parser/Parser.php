@@ -1,10 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace App\CommissionCalculation\Application\Parser;
+namespace App\CommissionCalculation\Infrastructure\Parser;
 
-use App\CommissionCalculation\Domain\Commission\{Commission};
-use App\CommissionCalculation\Application\Util\CardBinEuroChecker;
-use App\CommissionCalculation\Application\Client\ClientInterface;
+use App\CommissionCalculation\Domain\Commission\Commission;
+use App\CommissionCalculation\Infrastructure\Client\ClientInterface;
 use App\CommissionCalculation\Domain\Card\Card;
 use App\CommissionCalculation\Domain\ExchangeRate\ExchangeRate;
 

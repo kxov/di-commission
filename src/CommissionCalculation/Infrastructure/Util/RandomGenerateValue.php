@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\CommissionCalculation\Application\Util;
+namespace App\CommissionCalculation\Infrastructure\Util;
 
 final class RandomGenerateValue
 {

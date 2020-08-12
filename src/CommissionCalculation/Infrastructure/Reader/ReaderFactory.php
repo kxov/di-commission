@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace App\CommissionCalculation\Application\Reader;
+namespace App\CommissionCalculation\Infrastructure\Reader;
 
-use App\CommissionCalculation\Application\Parser\ParserInterface;
+use App\CommissionCalculation\Infrastructure\Parser\ParserInterface;
 
 class ReaderFactory
 {

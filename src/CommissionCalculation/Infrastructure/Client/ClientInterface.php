@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\CommissionCalculation\Application\Client;
+namespace App\CommissionCalculation\Infrastructure\Client;
 
 use Symfony\Contracts\HttpClient\ResponseInterface;
 

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace App\CommissionCalculation\Application\Reader;
+namespace App\CommissionCalculation\Infrastructure\Reader;
 
 interface ReaderInterface
 {
