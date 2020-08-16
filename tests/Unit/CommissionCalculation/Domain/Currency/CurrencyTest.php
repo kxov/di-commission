@@ -3,7 +3,7 @@
 namespace Unit\Domain\Currency;
 
 use PHPUnit\Framework\TestCase;
-use App\CommissionCalculation\Domain\Currency\Currency;
+use App\CommissionCalculation\Domain\Currency\{ Currency, BadCurrencyCodeException};
 
 class CurrencyTest extends TestCase
 {
@@ -11,7 +11,7 @@ class CurrencyTest extends TestCase
     {
         $currency = Currency::fromString($rawVal = 'USD');
 
-        $this->assertEquals($currency->getValue(), $rawVal);
+        $this->assertEquals($currency->getCode(), $rawVal);
 
         $this->assertTrue($currency->isEquals($currency));
     }
@@ -26,5 +26,12 @@ class CurrencyTest extends TestCase
         $this->assertTrue($currency1->isEquals($currency2));
 
         $this->assertFalse($currency1->isEquals($currency3));
+    }
+
+    public function testConstructException()
+    {
+        $this->expectException(BadCurrencyCodeException::class);
+
+        Currency::fromString($rawVal = 'CURRENCY');
     }
 }

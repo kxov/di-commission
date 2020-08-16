@@ -4,20 +4,26 @@ namespace App\CommissionCalculation\Domain\Currency;
 
 final class Currency
 {
-    private string $value;
+    private const PATTERN = '/^[A-Z]{3}$/';
+
+    private string $code;
+
+    private function __construct(string $value)
+    {
+        if (!preg_match(self::PATTERN, $value)) {
+            throw new BadCurrencyCodeException($value);
+        }
+        $this->code = $value;
+    }
 
     public static function fromString(string $value): Currency
     {
-        $currency = new static();
-
-        $currency->value = $value;
-
-        return $currency;
+        return new static($value);
     }
 
-    public function getValue(): string
+    public function getCode(): string
     {
-        return $this->value;
+        return $this->code;
     }
 
     public function isEquals(Currency $currency): bool
@@ -26,6 +32,6 @@ final class Currency
             return true;
         }
 
-        return $this->value === $currency->value;
+        return $this->code === $currency->code;
     }
 }
