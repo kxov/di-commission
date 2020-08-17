@@ -2,18 +2,20 @@
 
 namespace App\CommissionCalculation\Domain\ExchangeRate;
 
+use App\CommissionCalculation\Domain\Currency\Currency;
+
 final class ExchangeRate
 {
-    private string $currency;
+    private Currency $currency;
     private ?float $rate;
 
-    public function __construct(string $currency, ?float $rate)
+    public function __construct(Currency $currency, ?float $rate)
     {
         $this->currency = $currency;
         $this->rate = $rate ?? 0.0;
     }
 
-    public function getCurrency()
+    public function getCurrency(): Currency
     {
         return $this->currency;
     }

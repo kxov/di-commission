@@ -2,6 +2,8 @@
 
 namespace Unit\Domain\Commission;
 
+use App\CommissionCalculation\Domain\Currency\Currency;
+use App\CommissionCalculation\Domain\Money\Money;
 use PHPUnit\Framework\TestCase;
 use App\CommissionCalculation\Domain\Commission\Commission;
 
@@ -10,9 +12,8 @@ class CommissionTest extends TestCase
     public function testCommissionSuccess()
     {
         $commission = new Commission(
-            $currency = 'EUR',
+            $money = new Money($amount = 100, $currency = Currency::fromString('EUR')),
             $rate = 0,
-            $amount = 100,
             $isEuro = true
         );
 
@@ -30,20 +31,24 @@ class CommissionTest extends TestCase
      * @param $isEuro
      * @param $expected
      */
-    public function testCalculate($currency, $rate, $amount, $isEuro, $expected)
+    public function testCalculate($amount, $currency, $rate, $isEuro, $expected)
     {
-        $comm = new Commission($currency, $rate, $amount, $isEuro);
+        $commission = new Commission(
+            new Money($amount, Currency::fromString($currency)),
+            $rate,
+            $isEuro
+        );
 
-        $this->assertEquals($expected, $comm->calculate());
+        $this->assertEquals($expected, $commission->calculate());
     }
 
     public function commissionProvider()
     {
         return [
-            1  => ['EUR', 0, 100, true, 1.0],
-            2  => ['USD', 1.1414, 50, true, 0.44],
-            3  => ['ES', 1, 1, false, 0.02],
-            4  => ['0', 0, 0, false, 0.00]
+            1  => [ 100, 'EUR', 0, true, 1.0],
+            2  => [ 1.1414, 'USD', 1.1813, true, 0.01],
+            3  => [ 10, 'JPY', 126.01, false, 0.01],
+            4  => [ 200.12, 'GBP', 0.90173, false, 4.44]
         ];
     }
 }

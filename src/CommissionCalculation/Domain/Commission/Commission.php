@@ -2,6 +2,9 @@
 
 namespace App\CommissionCalculation\Domain\Commission;
 
+use App\CommissionCalculation\Domain\Currency\Currency;
+use App\CommissionCalculation\Domain\Money\Money;
+
 final class Commission
 {
     private const CHECK_CURRENCY = 'EUR';
@@ -10,21 +13,18 @@ final class Commission
 
     private float $fixed = 0.0;
 
-    private string $currency;
+    private Money  $money;
     private float  $rate;
-    private float  $amount;
     private bool   $isEuro;
 
     public function __construct(
-        string $currency,
+        Money  $money,
         float  $rate,
-        float  $amount,
         bool   $isEuro
     )
     {
-        $this->currency = $currency;
+        $this->money = $money;
         $this->rate = $rate;
-        $this->amount = $amount;
         $this->isEuro = $isEuro;
     }
 
@@ -36,20 +36,20 @@ final class Commission
 
     public function calculate()
     {
-        if ($this->currency === self::CHECK_CURRENCY || $this->rate === 0) {
-            $this->fixed = $this->amount;
+        if ($this->money->getCurrency()->getCode() === self::CHECK_CURRENCY || $this->rate === 0) {
+            $this->fixed = $this->money->getAmount();
         }
 
-        if ($this->currency !== self::CHECK_CURRENCY && $this->rate > 0) {
-            $this->fixed = $this->amount / $this->rate;
+        if ($this->money->getCurrency()->getCode() !== self::CHECK_CURRENCY && $this->rate > 0) {
+            $this->fixed = $this->money->getAmount() / $this->rate;
         }
 
         return $this->roundUp($this->fixed * ($this->isEuro ? self::WITH_EURO : self::WITH_OUT_EURO));
     }
 
-    public function getCurrency(): string
+    public function getCurrency(): Currency
     {
-        return $this->currency;
+        return $this->money->getCurrency();
     }
 
     public function getRate(): float
@@ -59,7 +59,7 @@ final class Commission
 
     public function getAmount(): float
     {
-        return $this->amount;
+        return $this->money->getAmount();
     }
 
     public function isEuro(): bool
