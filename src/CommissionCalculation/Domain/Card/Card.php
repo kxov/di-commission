@@ -10,16 +10,23 @@ final class Card
         'MT', 'NL', 'PL', 'PT', 'RO', 'SE', 'SI', 'SK'
     ];
 
+    private string $bin;
     private string $countryCode;
 
-    public function __construct(string $countryCode)
+    public function __construct(string $bin, string $countryCode)
     {
+        $this->bin = $bin;
         $this->countryCode = $countryCode;
     }
 
     public function getCountryCode(): string
     {
         return $this->countryCode;
+    }
+
+    public function getBin(): string
+    {
+        return $this->bin;
     }
 
     public function isEuro(): bool

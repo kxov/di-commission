@@ -40,24 +40,22 @@ final class Parser implements ParserInterface
         $money = new Money(floatval($line->amount), Currency::fromString($line->currency));
 
         $rate = $this->getRate($money->getCurrency());
-        $isEuro = $this->isEuro($line->bin);
+        $card = $this->getCard($line->bin);
 
         $commission = new Commission(
             $money,
             $rate,
-            $isEuro
+            $card->isEuro()
         );
 
         return $commission->calculate();
     }
 
-    private function isEuro(string $bin): bool
+    private function getCard(string $bin): Card
     {
         $response = $this->client->getArray(sprintf(self::BIN_URL, $bin));
 
-        $card = new Card($response['country']['alpha2']);
-
-        return $card->isEuro();
+        return new Card($bin, $response['country']['alpha2']);
     }
 
     private function getRate(Currency $currency)

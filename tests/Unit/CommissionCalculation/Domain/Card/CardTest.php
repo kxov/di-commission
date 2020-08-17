@@ -9,7 +9,7 @@ class CardTest extends TestCase
 {
     public function testSuccessAndEuroTrue()
     {
-        $card = new Card($countryCode = 'DK');
+        $card = new Card('516793', $countryCode = 'DK');
 
         $this->assertEquals($card->getCountryCode(), $countryCode);
 
@@ -18,7 +18,7 @@ class CardTest extends TestCase
 
     public function testSuccessAndEuroFalse()
     {
-        $card = new Card($countryCode = 'UA');
+        $card = new Card('456788', $countryCode = 'UA');
 
         $this->assertEquals($card->getCountryCode(), $countryCode);
 

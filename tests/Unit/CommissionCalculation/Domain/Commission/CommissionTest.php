@@ -25,9 +25,9 @@ class CommissionTest extends TestCase
 
     /**
      * @dataProvider commissionProvider
+     * @param $amount
      * @param $currency
      * @param $rate
-     * @param $amount
      * @param $isEuro
      * @param $expected
      */
