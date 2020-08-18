@@ -4,6 +4,7 @@ namespace Unit\CommissionCalculation\Domain\Money;
 
 use App\CommissionCalculation\Domain\Currency\Currency;
 use App\CommissionCalculation\Domain\Money\Money;
+use App\CommissionCalculation\Domain\Money\NegativeMoneyAmount;
 use PHPUnit\Framework\TestCase;
 
 class MoneyTest extends TestCase
@@ -38,5 +39,12 @@ class MoneyTest extends TestCase
         $money3 = new Money($amount = 100, $currency = Currency::fromString('USD'));
 
         $this->assertEquals($money->compareTo($money3), 0);
+    }
+
+    public function testNegativeMoneyAmount()
+    {
+        $this->expectException(NegativeMoneyAmount::class);
+
+        new Money($amount = -500, $currency = Currency::fromString('USD'));
     }
 }

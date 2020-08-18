@@ -12,6 +12,15 @@ final class Money
     public function __construct(float $amount, Currency $currency)
     {
         $this->currency = $currency;
+        $this->setAmount($amount);
+    }
+
+    private function setAmount(float $amount)
+    {
+        if ($amount < 0) {
+            throw new NegativeMoneyAmount();
+        }
+
         $this->amount = $amount;
     }
 
