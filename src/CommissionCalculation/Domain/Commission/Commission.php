@@ -19,12 +19,11 @@ final class Commission
 
     public function __construct(
         Money  $money,
-        float  $rate,
         bool   $isEuro
     )
     {
-        $this->money = $money;
-        $this->rate = $rate;
+        $this->money  = $money;
+        $this->rate   = $money->getCurrency()->getRate();
         $this->isEuro = $isEuro;
     }
 

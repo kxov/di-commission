@@ -7,7 +7,6 @@ use App\CommissionCalculation\Domain\Currency\Currency;
 use App\CommissionCalculation\Domain\Money\Money;
 use App\CommissionCalculation\Infrastructure\Client\ClientInterface;
 use App\CommissionCalculation\Domain\Card\Card;
-use App\CommissionCalculation\Domain\ExchangeRate\ExchangeRate;
 
 final class Parser implements ParserInterface
 {
@@ -37,14 +36,12 @@ final class Parser implements ParserInterface
             throw new ParseLineException(sprintf('Bad json line: %s', $json));
         }
 
-        $money = new Money(floatval($line->amount), Currency::fromString($line->currency));
+        $money = new Money(floatval($line->amount), $this->getCurrencyRate($line->currency));
 
-        $rate = $this->getRate($money->getCurrency());
         $card = $this->getCard($line->bin);
 
         $commission = new Commission(
             $money,
-            $rate,
             $card->isEuro()
         );
 
@@ -58,12 +55,10 @@ final class Parser implements ParserInterface
         return new Card($bin, $response['country']['alpha2']);
     }
 
-    private function getRate(Currency $currency)
+    private function getCurrencyRate(string $currencyRaw): Currency
     {
         $response = $this->client->getArray(self::EXCHANGE_URL);
 
-        $exchangeRate = new ExchangeRate($currency, $response['rates'][$currency->getCode()]);
-
-        return $exchangeRate->getRate();
+        return new Currency($currencyRaw, $response['rates'][$currencyRaw]);
     }
 }

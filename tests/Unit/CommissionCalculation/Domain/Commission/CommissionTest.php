@@ -12,8 +12,7 @@ class CommissionTest extends TestCase
     public function testCommissionSuccess()
     {
         $commission = new Commission(
-            $money = new Money($amount = 100, $currency = Currency::fromString('EUR')),
-            $rate = 0,
+            $money  = new Money($amount = 100, $currency = new Currency('EUR', $rate = 0.0)),
             $isEuro = true
         );
 
@@ -34,8 +33,7 @@ class CommissionTest extends TestCase
     public function testCalculate($amount, $currency, $rate, $isEuro, $expected)
     {
         $commission = new Commission(
-            new Money($amount, Currency::fromString($currency)),
-            $rate,
+            new Money($amount, new Currency($currency, $rate)),
             $isEuro
         );
 

@@ -11,17 +11,17 @@ class MoneyTest extends TestCase
 {
     public function testSuccess()
     {
-        $money = new Money($amount = 100.00, $currency = Currency::fromString('USD'));
+        $money = new Money($amount = 100.00, $currency = new Currency($code = 'USD', $rate = 2.34));
 
         $this->assertEquals($money->getAmount(), $amount);
         $this->assertEquals($money->getCurrency(), $currency);
 
-        $money1 = new Money($amount = 100.00, $currency = Currency::fromString('USD'));
+        $money1 = new Money(100.00, new Currency($code = 'USD', $rate = 2.34));
 
         $this->assertTrue($money->isEquals($money1));
 
-        $money2 = new Money($amount = 100.01, $currency = Currency::fromString('USD'));
-        $money3 = new Money($amount = 200.00, $currency = Currency::fromString('USD'));
+        $money2 = new Money(100.01, new Currency($code = 'USD', $rate = 2.34));
+        $money3 = new Money(200.00, new Currency($code = 'USD', $rate = 2.34));
 
         $this->assertFalse($money->isEquals($money2));
         $this->assertFalse($money->isEquals($money3));
@@ -29,14 +29,14 @@ class MoneyTest extends TestCase
 
     public function testCompare()
     {
-        $money = new Money($amount = 100, $currency = Currency::fromString('USD'));
+        $money = new Money(100,  new Currency($code = 'USD', $rate = 2.34));
 
-        $money1 = new Money($amount = 101, $currency = Currency::fromString('USD'));
+        $money1 = new Money(101, new Currency($code = 'USD', $rate = 2.34));
 
         $this->assertEquals($money1->compareTo($money), 1);
         $this->assertEquals($money->compareTo($money1), -1);
 
-        $money3 = new Money($amount = 100, $currency = Currency::fromString('USD'));
+        $money3 = new Money(100, new Currency($code = 'USD', $rate = 2.34));
 
         $this->assertEquals($money->compareTo($money3), 0);
     }
@@ -45,6 +45,6 @@ class MoneyTest extends TestCase
     {
         $this->expectException(NegativeMoneyAmount::class);
 
-        new Money($amount = -500, $currency = Currency::fromString('USD'));
+        new Money(-500, new Currency($code = 'USD', $rate = 2.34));
     }
 }

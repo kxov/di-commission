@@ -7,8 +7,15 @@ final class Currency
     private const PATTERN = '/^[A-Z]{3}$/';
 
     private string $code;
+    private float $rate;
 
-    private function __construct(string $value)
+    public function __construct(string $value, ?float $rate)
+    {
+        $this->setCode($value);
+        $this->setRate($rate);
+    }
+
+    private function setCode(string $value)
     {
         if (!preg_match(self::PATTERN, $value)) {
             throw new BadCurrencyCodeException($value);
@@ -16,14 +23,26 @@ final class Currency
         $this->code = $value;
     }
 
-    public static function fromString(string $value): Currency
+    private function setRate(?float $rate)
     {
-        return new static($value);
+        if (is_null($rate)) {
+            $this->rate = 0.0;
+        } else {
+            if ($rate < 0) {
+                throw new NegativeCurrencyRate( (string) $rate);
+            }
+            $this->rate = $rate;
+        }
     }
 
     public function getCode(): string
     {
         return $this->code;
+    }
+
+    public function getRate(): float
+    {
+        return $this->rate;
     }
 
     public function isEquals(Currency $currency): bool

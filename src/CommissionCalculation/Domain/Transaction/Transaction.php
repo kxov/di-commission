@@ -3,18 +3,16 @@
 namespace App\CommissionCalculation\Domain\Transaction;
 
 use App\CommissionCalculation\Domain\Card\Card;
-use App\CommissionCalculation\Domain\Currency\Currency;
+use App\CommissionCalculation\Domain\Money\Money;
 
 final class Transaction
 {
-    private Card $card;
-    private Currency $currency;
-    private float $amount;
+    private Card  $card;
+    private Money $amount;
 
-    public function __construct(Card $card, Currency $currency, float $amount)
+    public function __construct(Card $card, Money $amount)
     {
         $this->card = $card;
-        $this->currency = $currency;
         $this->amount = $amount;
     }
 }
