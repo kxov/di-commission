@@ -2,15 +2,15 @@
 
 namespace App\CommissionCalculation\Infrastructure\Client;
 
-use Symfony\Contracts\HttpClient\HttpClientInterface;
-use Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface;
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Psr\Http\Client\ClientExceptionInterface;
+use Psr\Http\Client\ClientInterface as PsrClientInterface;
+use Psr\Http\Message\ResponseInterface;
 
 final class Client implements ClientInterface
 {
-    private HttpClientInterface $client;
+    private PsrClientInterface $client;
 
-    public function __construct(HttpClientInterface $client)
+    public function __construct(PsrClientInterface $client)
     {
         $this->client = $client;
     }
@@ -18,7 +18,8 @@ final class Client implements ClientInterface
     public function get(string $url): ResponseInterface
     {
         try {
-            $response = $this->client->request('GET', $url);
+            $request = $this->client->createRequest('GET', $url);
+            $response = $this->client->sendRequest($request);
 
             if ($response->getStatusCode() !== 200) {
                 $message = sprintf(
@@ -31,13 +32,13 @@ final class Client implements ClientInterface
 
             return $response;
 
-        } catch (TransportExceptionInterface $exception) {
+        } catch (ClientExceptionInterface $exception) {
             throw new \DomainException($exception->getMessage());
         }
     }
 
     public function getArray(string $url): array
     {
-        return self::get($url)->toArray();
+        return json_decode(self::get($url)->getBody()->getContents(), true);
     }
 }

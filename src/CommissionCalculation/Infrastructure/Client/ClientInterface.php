@@ -2,7 +2,7 @@
 
 namespace App\CommissionCalculation\Infrastructure\Client;
 
-use Symfony\Contracts\HttpClient\ResponseInterface;
+use Psr\Http\Message\ResponseInterface;
 
 interface ClientInterface
 {
