@@ -11,7 +11,7 @@ use App\CommissionCalculation\Domain\Card\Card;
 final class Parser implements ParserInterface
 {
     public const BIN_URL = 'https://lookup.binlist.net/%s';
-    public const EXCHANGE_URL = 'https://api.exchangeratesapi.io/latest';
+    public const EXCHANGE_URL = 'https://api.exchangerate.host/latest';
 
     private ClientInterface $client;
 

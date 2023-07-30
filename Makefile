@@ -4,7 +4,7 @@ stop:
 	docker-compose down --remove-orphans
 
 composer-install:
-	docker-compose run --rm php-cli composer install
+	docker-compose run --rm php-cli composer install --ignore-platform-reqs
 
 run:
 	docker-compose run --rm php-cli php src/app.php -f=/app/input/input.txt
