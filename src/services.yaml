@@ -1,3 +1,6 @@
+parameters:
+    file_input: '/app/input/input.txt'
+
 services:
     client:
         class: App\CommissionCalculation\Infrastructure\Client\Client
@@ -7,7 +10,7 @@ services:
         arguments: ['@client']
     iterator:
         class: App\CommissionCalculation\Infrastructure\Reader\FileIterator
-        arguments: ['/app/input/input.txt']
+        arguments: ['%file_input%']
     reader:
         class: App\CommissionCalculation\Infrastructure\Reader\Reader
         factory: ['App\CommissionCalculation\Infrastructure\Reader\ReaderFactory', 'make']
