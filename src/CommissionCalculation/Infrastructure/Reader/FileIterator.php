@@ -3,6 +3,7 @@
 namespace App\CommissionCalculation\Infrastructure\Reader;
 
 use Iterator;
+use ReturnTypeWillChange;
 
 final class FileIterator implements Iterator
 {
@@ -21,28 +22,28 @@ final class FileIterator implements Iterator
         $this->handler = fopen($fileName, 'r');
     }
 
-    public function current()
+    #[ReturnTypeWillChange] public function current()
     {
         return $this->current;
     }
 
-    public function next()
+    #[ReturnTypeWillChange] public function next(): void
     {
         $this->current = fgets($this->handler);
         $this->key++;
     }
 
-    public function key()
+    #[ReturnTypeWillChange] public function key(): int
     {
         return $this->key;
     }
 
-    public function valid()
+    #[ReturnTypeWillChange] public function valid(): bool
     {
         return ! feof($this->handler);
     }
 
-    public function rewind()
+    #[ReturnTypeWillChange] public function rewind(): void
     {
         rewind($this->handler);
         $this->current = fgets($this->handler);

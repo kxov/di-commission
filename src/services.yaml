@@ -1,0 +1,16 @@
+services:
+    client:
+        class: App\CommissionCalculation\Infrastructure\Client\Client
+        factory: ['App\CommissionCalculation\Infrastructure\Client\ClientFactory', create]
+    parser:
+        class: App\CommissionCalculation\Infrastructure\Parser\Parser
+        arguments: ['@client']
+    iterator:
+        class: App\CommissionCalculation\Infrastructure\Reader\FileIterator
+        arguments: ['/app/input/input.txt']
+    reader:
+        class: App\CommissionCalculation\Infrastructure\Reader\Reader
+        factory: ['App\CommissionCalculation\Infrastructure\Reader\ReaderFactory', 'make']
+        arguments:
+            - '@parser'
+            - '@iterator'
