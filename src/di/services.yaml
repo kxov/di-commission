@@ -12,6 +12,7 @@ services:
         class: App\CommissionCalculation\Infrastructure\Reader\FileIterator
         arguments: ['%file_input%']
     reader:
+        public: true
         class: App\CommissionCalculation\Infrastructure\Reader\Reader
         factory: ['App\CommissionCalculation\Infrastructure\Reader\ReaderFactory', 'make']
         arguments:
